@@ -17,15 +17,38 @@
       <video class="video" src="./assets/img/video/video0.mp4" poster="./assets/img/video/poster0.jpg"></video>
       <div class="speed-indicator"></div>
       <button class="control-btn play__big toggle"></button>
+
+      <div class="overlay-speed-block">
+        <div class="speed-block">
+          <ul>
+            <li class="speed-item">0.25</li>
+            <li class="speed-item">0.5</li>
+            <li class="speed-item">0.75</li>
+            <li class="speed-item">1</li>
+            <li class="speed-item">1.25</li>
+            <li class="speed-item">1.5</li>
+            <li class="speed-item">1.75</li>
+            <li class="speed-item">2</li>
+          </ul>
+        </div>
+
+      </div>
     </div>
 
     <div class="control">
-      <button class="control-btn play__small toggle"></button>
+
+      <div class="btn-wrap">
+        <button class="control-btn pre"></button>
+        <button class="control-btn play__small toggle"></button>
+        <button class="control-btn next"></button>
+      </div>
+
       <input class="progress duration" type="range" value="0" min="0" max="100" step="1" />
 
       <div class="sound-fullscreen-wrap">
         <button class="control-btn sound"></button>
         <input class="progress volume" type="range" min="0" max="100" step="1" />
+        <button class="control-btn settings"></button>
         <button class="control-btn fullscreen"></button>
       </div>
     </div>

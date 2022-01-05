@@ -13,10 +13,22 @@ const soundBtn = document.querySelector(".sound");
 const fullScreenBtn = document.querySelector(".fullscreen");
 const controls = document.querySelector(".control");
 
+const settings = document.querySelector(".settings");
+const speedBlockOverlay = document.querySelector(".overlay-speed-block");
+const speedBlock = document.querySelector(".speed-block");
+
+const speedItems = document.querySelectorAll(".speed-item");
+
 defaultVolume();
 
-let playSpeed = 1;
+let playSpeed = video.playbackRate;
 let vol = video.volume;
+
+speedItems.forEach(item => {
+  if (playSpeed === +item.innerHTML) {
+    item.classList.add('speed-item-active');
+  }
+});
 
 function defaultVolume() {
   videoVolume.value = 20;
@@ -122,9 +134,9 @@ function fullScreen() {
   }
 }
 
-function showSpeedInd() {
+function showSpeedInd(speed) {
   const speedIndicator = document.querySelector(".speed-indicator");
-  speedIndicator.innerHTML = playSpeed + 'x';
+  speedIndicator.innerHTML = speed + 'x';
   speedIndicator.style.opacity = 1;
   speedIndicator.style.zIndex = 9;
 
@@ -132,6 +144,13 @@ function showSpeedInd() {
     speedIndicator.style.opacity = '';
     speedIndicator.style.zIndex = '';
   }, 1000);
+}
+
+// .................................................
+
+function setClass(p) {
+  speedItems.forEach(item => item.classList.remove('speed-item-active'));
+  p.classList.add('speed-item-active');
 }
 
 function speedHandler(num, flag) {
@@ -144,8 +163,34 @@ function speedHandler(num, flag) {
   }
 
   video.playbackRate = playSpeed;
-  showSpeedInd()
+  showSpeedInd(playSpeed);
+
+  speedItems.forEach(item => {
+    if (playSpeed === +item.innerText) {
+      setClass(item);
+    }
+  });
 }
+
+function setSpeed(e) {
+  const el = e.target;
+
+  if (el.classList.contains('speed-item-active')) {
+    return;
+  }
+
+  if (el.classList.contains('speed-item')) {
+    setClass(el);
+
+    let speed = +el.innerText;
+
+    video.playbackRate = speed;
+    playSpeed = speed;
+    showSpeedInd(speed);
+  }
+}
+
+// .................................................
 
 function pressTwoKeys(k1, k1a, k2, func) {
   let key1 = false;
@@ -195,8 +240,22 @@ videoVolume.addEventListener("input", handleVolume);
 videoDuration.addEventListener("input", changeCurrrentTime);
 soundBtn.addEventListener("click", soundToggle);
 fullScreenBtn.addEventListener("click", fullScreen);
+
+document.addEventListener("keydown", (e) => keyboardHandler(e));
+
 document.documentElement.addEventListener("fullscreenchange", () => {
   controls.classList.toggle("control-fullscreen");
 });
-document.addEventListener("keydown", (e) => keyboardHandler(e));
 
+speedBlock.addEventListener('click', (e) => {
+  setSpeed(e);
+  e.stopPropagation()
+});
+
+settings.addEventListener('click', () => {
+  speedBlockOverlay.classList.toggle('show-speed-block')
+});
+
+speedBlockOverlay.addEventListener('click', (e) => {
+  speedBlockOverlay.classList.remove('show-speed-block');
+});
