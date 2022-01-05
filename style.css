@@ -1,0 +1,266 @@
+body {
+  background-color: #ffc60966;
+}
+
+.player {
+  max-width: 1000px;
+  min-width: 300px;
+  margin: 20px auto;
+}
+
+.video-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.speed-indicator {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 210px;
+  height: 121px;
+  border-radius: 23px;
+  text-align: center;
+  font-size: 60px;
+  line-height: 2;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: var(--transition);
+  z-index: -1;
+}
+
+.play__big {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 160px;
+  height: 160px;
+  transform: translate(-50%, -50%);
+  background-image: url("./assets/svg/video/play-btn.svg");
+}
+
+/* ...........control............ */
+
+.control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  padding: 0 30px;
+  margin-top: -5px;
+  box-sizing: border-box;
+  background-color: #000000;
+  transition: 0.4s;
+}
+
+.control-btn {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  background-size: cover;
+  transition: 0.4s;
+}
+
+.play__small {
+  width: 33px;
+  height: 30px;
+  background-image: url("./assets/svg/video/play.svg");
+  background-repeat: no-repeat;
+}
+
+.progress {
+  width: 100%;
+  height: 8px;
+  margin: 0 50px;
+  outline: none;
+  background: linear-gradient(to right,
+      #710707 0%,
+      #710707 0%,
+      #c4c4c4 0%,
+      #c4c4c4 100%);
+
+  -webkit-appearance: none;
+}
+
+.progress::-webkit-slider-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  cursor: ew-resize;
+  background: #ffffff;
+}
+
+.sound-fullscreen-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.sound {
+  width: 36px;
+  height: 30px;
+  background-image: url("./assets/svg/video/volume.svg");
+}
+
+.volume {
+  width: 155px;
+  margin-left: 50px;
+  margin-right: 48px;
+}
+
+.fullscreen {
+  width: 36px;
+  height: 36px;
+  background-image: url("./assets/svg/video/fullscreen.svg");
+}
+
+.control-fullscreen {
+  position: absolute;
+  bottom: 0;
+  opacity: 0;
+}
+
+.control-fullscreen:hover {
+  opacity: 1;
+}
+
+.control-btn:hover {
+  filter: invert(5%) sepia(0%) saturate(50%) hue-rotate(23deg) brightness(72%) contrast(73%);
+}
+
+
+/* .............media............. */
+
+@media all and (max-width: 1024px) {
+  .play__big {
+    width: 152px;
+    height: 152px;
+    background-size: cover;
+  }
+
+  .control {
+    height: 60px;
+    padding: 0 40px;
+  }
+
+  .progress {
+    height: 5px;
+    margin: 0 30px;
+  }
+
+  .progress::-webkit-slider-thumb {
+    width: 13px;
+    height: 13px;
+  }
+
+  .sound {
+    width: 25px;
+    height: 20px;
+    background-size: cover;
+  }
+
+  .volume {
+    width: 143px;
+  }
+
+  .fullscreen {
+    width: 27px;
+    height: 27px;
+    background-size: cover;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .play__big {
+    width: 80px;
+    height: 80px;
+  }
+
+  .play__small {
+    background-size: contain;
+  }
+
+  .control {
+    height: 55px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 0 0 8px 0;
+  }
+
+  .duration {
+    order: -1;
+    align-self: flex-start;
+    margin: 0;
+    z-index: 5;
+  }
+
+  .sound-fullscreen-wrap {
+    justify-content: space-between;
+    width: 84%;
+  }
+
+  .volume {
+    width: 80%;
+    margin: 0;
+  }
+
+}
+
+@media all and (max-width: 420px) {
+  .play__big {
+    width: 50px;
+    height: 50px;
+  }
+
+  .control {
+    height: 53px;
+  }
+
+  .progress {
+    height: 4px;
+  }
+
+  .progress::-webkit-slider-thumb {
+    width: 10px;
+    height: 10px;
+  }
+
+  .play__small,
+  .sound,
+  .fullscreen {
+    background-size: 65%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+  }
+
+  .play__small {
+    width: 23px;
+  }
+
+  .sound {
+    width: 27px;
+  }
+
+  .fullscreen {
+    width: 27px;
+  }
+
+  .sound-fullscreen-wrap {
+    justify-content: space-between;
+    width: 81%;
+  }
+
+  .volume {
+    width: 65%;
+  }
+}

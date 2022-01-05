@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./assets/svg/video/player-icon.png" />
+  <link rel="stylesheet" href="./style.css" />
+  <title>Video-player</title>
+</head>
+
+<body>
+
+  <div class="player">
+    <div class="video-wrap">
+      <video class="video" src="./assets/img/video/video0.mp4" poster="./assets/img/video/poster0.jpg"></video>
+      <div class="speed-indicator"></div>
+      <button class="control-btn play__big toggle"></button>
+    </div>
+
+    <div class="control">
+      <button class="control-btn play__small toggle"></button>
+      <input class="progress duration" type="range" value="0" min="0" max="100" step="1" />
+
+      <div class="sound-fullscreen-wrap">
+        <button class="control-btn sound"></button>
+        <input class="progress volume" type="range" min="0" max="100" step="1" />
+        <button class="control-btn fullscreen"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
