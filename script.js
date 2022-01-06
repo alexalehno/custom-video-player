@@ -50,7 +50,7 @@ document.documentElement.addEventListener("fullscreenchange", () => {
   speedBlock.classList.toggle("speed-block-fullscreen");
 });
 
-window.addEventListener('load', () => {
+video.addEventListener('loadeddata', () => {
   durationTime.textContent = formatSec(video.duration);
 });
 
