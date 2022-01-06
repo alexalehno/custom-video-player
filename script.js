@@ -16,14 +16,20 @@ const settings = document.querySelector(".settings");
 const speedBlockOverlay = document.querySelector(".overlay-speed-block");
 const speedBlock = document.querySelector(".speed-block");
 const speedItems = document.querySelectorAll(".speed-item");
-
 const currentTime = document.querySelector('.current-time');
 const durationTime = document.querySelector('.duration-time');
+const next = document.querySelector('.next');
+const pre = document.querySelector('.pre');
+const videoName = document.querySelector('.video-name');
+
 
 defaultVolume();
 
 let playSpeed = video.playbackRate;
 let vol = video.volume;
+let trackNum = 0;
+
+showVideoName(trackNum);
 
 speedItems.forEach(item => {
   if (playSpeed === +item.innerHTML) {
@@ -35,6 +41,9 @@ pressTwoKeys('ShiftLeft', 'ShiftRight', 'Period', () => speedHandler(0.25, true)
 pressTwoKeys('ShiftLeft', 'ShiftRight', 'Comma', () => speedHandler(-0.25, false));
 
 
+video.addEventListener('loadeddata', handleDuration);
+next.addEventListener("click", nextTrack);
+pre.addEventListener("click", preTrack);
 toggle.forEach((el) => el.addEventListener("click", togglePlay));
 video.addEventListener("click", togglePlay);
 video.addEventListener("timeupdate", handleDuration);
@@ -42,16 +51,11 @@ videoVolume.addEventListener("input", handleVolume);
 videoDuration.addEventListener("input", changeCurrrentTime);
 soundBtn.addEventListener("click", soundToggle);
 fullScreenBtn.addEventListener("click", fullScreen);
-
 document.addEventListener("keydown", (e) => keyboardHandler(e));
 
 document.documentElement.addEventListener("fullscreenchange", () => {
   controls.classList.toggle("control-fullscreen");
   speedBlock.classList.toggle("speed-block-fullscreen");
-});
-
-video.addEventListener('loadeddata', () => {
-  durationTime.textContent = formatSec(video.duration);
 });
 
 speedBlock.addEventListener('click', (e) => {
@@ -63,11 +67,35 @@ settings.addEventListener('click', () => {
   speedBlockOverlay.classList.toggle('show-speed-block')
 });
 
-speedBlockOverlay.addEventListener('click', (e) => {
+speedBlockOverlay.addEventListener('click', () => {
   speedBlockOverlay.classList.remove('show-speed-block');
 });
 
 
+function showVideoName(num) {
+  videoName.textContent = `Video ${num+1}`;
+}
+
+function setSrc() {
+  video.src = `./assets/img/video/video${trackNum}.mp4`;
+  video.poster = `./assets/img/video/poster${trackNum}.jpg`;
+}
+
+function nextTrack() {
+  trackNum++;
+  if (trackNum > 4) trackNum = 0;
+  setSrc();
+  resetStylePlay();
+  showVideoName(trackNum);
+}
+
+function preTrack() {
+  trackNum--;
+  if (trackNum < 0) trackNum = 4;
+  setSrc();
+  resetStylePlay();
+  showVideoName(trackNum);
+}
 
 function formatSec(sec) {
   sec = Math.trunc(sec);
@@ -89,19 +117,26 @@ function changeProgressStyle(el, value) {
 function togglePlay() {
   if (video.paused) {
     video.play();
+    videoName.classList.add('video-name-opacity');
     playBig.style.opacity = "0";
     playSmall.style.backgroundImage = 'url("./assets/svg/video/pause.svg")';
   } else {
     video.pause();
-    playBig.style.opacity = "";
-    playSmall.style.backgroundImage = "";
+    resetStylePlay();
   }
+}
+
+function resetStylePlay() {
+  videoName.classList.remove('video-name-opacity');
+  playBig.style.opacity = "";
+  playSmall.style.backgroundImage = "";
 }
 
 function handleDuration() {
   videoDuration.value = (video.currentTime / video.duration) * 100;
   changeProgressStyle(videoDuration, videoDuration.value);
   currentTime.textContent = formatSec(video.currentTime);
+  durationTime.textContent = formatSec(video.duration);
 
   if (video.duration === video.currentTime) {
     playBig.style.opacity = "";

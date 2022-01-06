@@ -43,6 +43,26 @@ body {
   z-index: -1;
 }
 
+.video-name {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding-top: 20px;
+  padding-left: 15px;
+  box-sizing: border-box;
+  font-size: 34px;
+  color: white;
+  transition: var(--transition);
+}
+
+.video-name-opacity {
+  opacity: 0;
+}
+
+.video-name:hover {
+  opacity: 1;
+}
+
 .overlay-speed-block {
   position: absolute;
   top: 0;
