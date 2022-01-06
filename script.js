@@ -12,12 +12,13 @@ const videoVolume = document.querySelector(".volume");
 const soundBtn = document.querySelector(".sound");
 const fullScreenBtn = document.querySelector(".fullscreen");
 const controls = document.querySelector(".control");
-
 const settings = document.querySelector(".settings");
 const speedBlockOverlay = document.querySelector(".overlay-speed-block");
 const speedBlock = document.querySelector(".speed-block");
-
 const speedItems = document.querySelectorAll(".speed-item");
+
+const currentTime = document.querySelector('.current-time');
+const durationTime = document.querySelector('.duration-time');
 
 defaultVolume();
 
@@ -29,6 +30,51 @@ speedItems.forEach(item => {
     item.classList.add('speed-item-active');
   }
 });
+
+pressTwoKeys('ShiftLeft', 'ShiftRight', 'Period', () => speedHandler(0.25, true));
+pressTwoKeys('ShiftLeft', 'ShiftRight', 'Comma', () => speedHandler(-0.25, false));
+
+
+toggle.forEach((el) => el.addEventListener("click", togglePlay));
+video.addEventListener("click", togglePlay);
+video.addEventListener("timeupdate", handleDuration);
+videoVolume.addEventListener("input", handleVolume);
+videoDuration.addEventListener("input", changeCurrrentTime);
+soundBtn.addEventListener("click", soundToggle);
+fullScreenBtn.addEventListener("click", fullScreen);
+
+document.addEventListener("keydown", (e) => keyboardHandler(e));
+
+document.documentElement.addEventListener("fullscreenchange", () => {
+  controls.classList.toggle("control-fullscreen");
+  speedBlock.classList.toggle("speed-block-fullscreen");
+});
+
+window.addEventListener('load', () => {
+  durationTime.textContent = formatSec(video.duration);
+});
+
+speedBlock.addEventListener('click', (e) => {
+  setSpeed(e);
+  e.stopPropagation()
+});
+
+settings.addEventListener('click', () => {
+  speedBlockOverlay.classList.toggle('show-speed-block')
+});
+
+speedBlockOverlay.addEventListener('click', (e) => {
+  speedBlockOverlay.classList.remove('show-speed-block');
+});
+
+
+
+function formatSec(sec) {
+  sec = Math.trunc(sec);
+  let m = Math.trunc(sec / 60);
+  let s = sec - m * 60;
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
 
 function defaultVolume() {
   videoVolume.value = 20;
@@ -54,7 +100,8 @@ function togglePlay() {
 
 function handleDuration() {
   videoDuration.value = (video.currentTime / video.duration) * 100;
-  changeProgressStyle(videoDuration, videoDuration.value)
+  changeProgressStyle(videoDuration, videoDuration.value);
+  currentTime.textContent = formatSec(video.currentTime);
 
   if (video.duration === video.currentTime) {
     playBig.style.opacity = "";
@@ -146,8 +193,6 @@ function showSpeedInd(speed) {
   }, 1000);
 }
 
-// .................................................
-
 function setClass(p) {
   speedItems.forEach(item => item.classList.remove('speed-item-active'));
   p.classList.add('speed-item-active');
@@ -190,8 +235,6 @@ function setSpeed(e) {
   }
 }
 
-// .................................................
-
 function pressTwoKeys(k1, k1a, k2, func) {
   let key1 = false;
   let key2 = false;
@@ -229,33 +272,3 @@ function keyboardHandler(e) {
       break;
   }
 }
-
-pressTwoKeys('ShiftLeft', 'ShiftRight', 'Period', () => speedHandler(0.25, true));
-pressTwoKeys('ShiftLeft', 'ShiftRight', 'Comma', () => speedHandler(-0.25, false));
-
-toggle.forEach((el) => el.addEventListener("click", togglePlay));
-video.addEventListener("click", togglePlay);
-video.addEventListener("timeupdate", handleDuration);
-videoVolume.addEventListener("input", handleVolume);
-videoDuration.addEventListener("input", changeCurrrentTime);
-soundBtn.addEventListener("click", soundToggle);
-fullScreenBtn.addEventListener("click", fullScreen);
-
-document.addEventListener("keydown", (e) => keyboardHandler(e));
-
-document.documentElement.addEventListener("fullscreenchange", () => {
-  controls.classList.toggle("control-fullscreen");
-});
-
-speedBlock.addEventListener('click', (e) => {
-  setSpeed(e);
-  e.stopPropagation()
-});
-
-settings.addEventListener('click', () => {
-  speedBlockOverlay.classList.toggle('show-speed-block')
-});
-
-speedBlockOverlay.addEventListener('click', (e) => {
-  speedBlockOverlay.classList.remove('show-speed-block');
-});

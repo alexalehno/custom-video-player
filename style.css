@@ -4,6 +4,7 @@
 
 body {
   background-color: #ffc60966;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .player {
@@ -67,6 +68,10 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
   background-color: rgba(0, 0, 0, 0.9);
+}
+
+.speed-block-fullscreen {
+  margin-bottom: 70px;
 }
 
 .speed-item {
@@ -190,6 +195,14 @@ body {
   align-items: center;
 }
 
+.progress-time {
+  display: flex;
+  justify-content: space-between;
+  width: 80px;
+  margin-right: 20px;
+  color: white;
+}
+
 .sound {
   width: 26px;
   height: 22px;
@@ -198,7 +211,8 @@ body {
 }
 
 .volume {
-  width: 155px;
+  width: 120px;
+  margin: 0 25px;
 }
 
 .settings {
@@ -245,8 +259,10 @@ body {
   }
 
   .control {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 0 8px 0;
     height: 60px;
-    padding: 0 40px;
   }
 
   .progress {
@@ -257,40 +273,6 @@ body {
   .progress::-webkit-slider-thumb {
     width: 13px;
     height: 13px;
-  }
-
-  .volume {
-    width: 143px;
-  }
-}
-
-@media all and (max-width: 768px) {
-  .play__big {
-    width: 80px;
-    height: 80px;
-  }
-
-  .btn-wrap {
-    width: 100px;
-  }
-
-  .play__small {
-    background-size: contain;
-  }
-
-  .control {
-    height: 55px;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 0 0 8px 0;
-  }
-
-  .btn-wrap {
-    margin-left: 20px;
-  }
-
-  .sound-fullscreen-wrap {
-    margin-right: 20px;
   }
 
   .duration {
@@ -305,11 +287,73 @@ body {
     justify-content: space-between;
   }
 
-  .volume {
+  .btn-wrap {
     width: 100px;
-    margin: 0 20px;
+    margin-left: 20px;
   }
 
+  .sound-fullscreen-wrap {
+    margin-right: 20px;
+  }
+
+  .volume {
+    width: 100px;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .play__big {
+    width: 80px;
+    height: 80px;
+  }
+
+  .btn-wrap {
+    width: 80px;
+    margin-left: 10px;
+  }
+
+  .sound-fullscreen-wrap {
+    margin-right: 10px;
+  }
+
+  .play__small {
+    background-size: contain;
+  }
+
+  .play__small,
+  .sound,
+  .fullscreen,
+  .settings {
+    background-size: 85%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+  }
+
+  .control {
+    height: 55px;
+  }
+
+  .progress-time,
+  .settings {
+    margin-right: 10px;
+  }
+
+  .volume {
+    width: 80px;
+    margin: 0 10px;
+  }
+
+  .speed-block {
+    width: 150px;
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+  }
+
+
+  .speed-block-fullscreen {
+    margin-bottom: 55px;
+  }
 }
 
 @media all and (max-width: 420px) {
@@ -332,7 +376,6 @@ body {
   }
 
   .btn-wrap {
-    width: 80px;
     margin-left: 7px;
   }
 
@@ -341,8 +384,6 @@ body {
   .fullscreen,
   .settings {
     background-size: 70%;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
   }
 
   .settings {
@@ -370,6 +411,10 @@ body {
   .sound-fullscreen-wrap {
     justify-content: space-between;
     margin-right: 7px;
+  }
+
+  .progress-time {
+    display: none;
   }
 
   .volume {
